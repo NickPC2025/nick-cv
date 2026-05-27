@@ -148,9 +148,10 @@ if (contactForm) {
             loaderIcon.style.display = 'inline-block';
             
             // EmailJS Submission
-            emailjs.sendForm('service_8vcq3z7', 'template_bot2huf', this)
-                .then(function() {
+            emailjs.sendForm('service_8vcq3z7', 'template_bot2huf', contactForm)
+                .then((result) => {
                     // Success
+                    console.log("EmailJS Success:", result.text);
                     submitBtn.disabled = false;
                     btnText.style.display = 'block';
                     loaderIcon.style.display = 'none';
@@ -163,13 +164,17 @@ if (contactForm) {
                     setTimeout(() => {
                         closeModal();
                     }, 3000);
-                }, function(error) {
+                })
+                .catch((error) => {
                     // Error
-                    console.error("FAILED...", error);
+                    console.error("EmailJS Error - Failed to send message:", error);
                     submitBtn.disabled = false;
                     btnText.style.display = 'block';
                     loaderIcon.style.display = 'none';
-                    alert("Something went wrong. Please try again later.");
+                    
+                    // Specific error alert based on the error object
+                    const errorMsg = error.text || error.message || "Network error or invalid parameters.";
+                    alert("Failed to send message. Error details: " + errorMsg + "\nPlease check the console for more information.");
                 });
         }
     });
