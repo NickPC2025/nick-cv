@@ -86,7 +86,7 @@ triggerBtns.forEach(btn => {
 const closeModal = () => {
     contactModal.classList.remove('active');
     document.body.style.overflow = '';
-    
+
     // Reset form and UI after closing animation
     setTimeout(() => {
         contactForm.reset();
@@ -111,42 +111,42 @@ if (contactModal) {
 
 // Form Validation and Submission
 if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
-        
+
         let isValid = true;
         const nameInput = document.getElementById('userName');
         const emailInput = document.getElementById('userEmail');
         const messageInput = document.getElementById('userMessage');
-        
+
         // Reset errors
         document.querySelectorAll('.form-group').forEach(group => group.classList.remove('error'));
-        
+
         // Validate Name
         if (!nameInput.value.trim()) {
             nameInput.parentElement.classList.add('error');
             isValid = false;
         }
-        
+
         // Validate Email
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailInput.value.trim() || !emailRegex.test(emailInput.value.trim())) {
             emailInput.parentElement.classList.add('error');
             isValid = false;
         }
-        
+
         // Validate Message
         if (!messageInput.value.trim()) {
             messageInput.parentElement.classList.add('error');
             isValid = false;
         }
-        
+
         if (isValid) {
             // Show loader
             submitBtn.disabled = true;
             btnText.style.display = 'none';
             loaderIcon.style.display = 'inline-block';
-            
+
             // Prepare data to send
             const templateParams = {
                 user_name: nameInput.value.trim(),
@@ -155,18 +155,18 @@ if (contactForm) {
             };
 
             // EmailJS Submission using explicit parameters
-            emailjs.send('service_8vcq3z7', 'template_bot2huf', templateParams)
+            emailjs.send('service_6sy31jd', 'template_bot2huf', templateParams)
                 .then((result) => {
                     // Success
                     console.log("EmailJS Success:", result.text);
                     submitBtn.disabled = false;
                     btnText.style.display = 'block';
                     loaderIcon.style.display = 'none';
-                    
+
                     // Show success notification
                     contactForm.style.display = 'none';
                     successNotification.classList.add('active');
-                    
+
                     // Auto close after 3 seconds
                     setTimeout(() => {
                         closeModal();
@@ -178,7 +178,7 @@ if (contactForm) {
                     submitBtn.disabled = false;
                     btnText.style.display = 'block';
                     loaderIcon.style.display = 'none';
-                    
+
                     // Specific error alert based on the error object
                     const errorMsg = error.text || error.message || "Network error or invalid parameters.";
                     alert("Failed to send message. Error details: " + errorMsg + "\nPlease check the console for more information.");
@@ -189,7 +189,7 @@ if (contactForm) {
 
 // Remove error styling on input
 document.querySelectorAll('.form-group input, .form-group textarea').forEach(element => {
-    element.addEventListener('input', function() {
+    element.addEventListener('input', function () {
         if (this.value.trim() !== '') {
             this.parentElement.classList.remove('error');
         }
