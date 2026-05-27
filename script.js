@@ -147,8 +147,15 @@ if (contactForm) {
             btnText.style.display = 'none';
             loaderIcon.style.display = 'inline-block';
             
-            // EmailJS Submission
-            emailjs.sendForm('service_8vcq3z7', 'template_bot2huf', contactForm)
+            // Prepare data to send
+            const templateParams = {
+                user_name: nameInput.value.trim(),
+                user_email: emailInput.value.trim(),
+                message: messageInput.value.trim(),
+            };
+
+            // EmailJS Submission using explicit parameters
+            emailjs.send('service_8vcq3z7', 'template_bot2huf', templateParams)
                 .then((result) => {
                     // Success
                     console.log("EmailJS Success:", result.text);
