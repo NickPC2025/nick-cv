@@ -155,7 +155,7 @@ if (contactForm) {
             };
 
             // EmailJS Submission using explicit parameters
-            emailjs.send('service_6sy31jd', 'template_bot2huf', templateParams)
+            emailjs.send('service_jtat29u', 'template_dswednd', templateParams)
                 .then((result) => {
                     // Success
                     console.log("EmailJS Success:", result.text);
